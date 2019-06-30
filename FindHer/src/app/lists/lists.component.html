@@ -1,0 +1,47 @@
+<div class="text-center mt-3">
+  <h2>{{route === 'likers' ? 'Members who like me' : 'Members who I\'ve Liked'}} {{pagination.totalLikes ? pagination.totalLikes : 'No one'}}</h2>
+</div>
+
+<div class="container mt-3">
+
+  <div class="row">
+    <div class="btn-group btn-group-toggle ml-3">
+      <label class="btn btn-primary">
+          <input type="radio" [(ngModel)]="route" value="likers" (change)="toggleRoute()">Members who like me
+      </label>
+      <label class="btn btn-primary">
+          <input type="radio" [(ngModel)]="route" value="likees" (change)="toggleRoute()">Members who I like
+      </label>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div *ngFor="let user of likeUserDetails" class="col-sm-6 col-md-4 col-lg-4 col-xl-2">
+      <app-member-card [user]="user"></app-member-card>
+    </div>
+  </div>
+
+
+
+</div>
+
+<div *ngIf="likeUserDetails.length !== 0" class="row justify-content-md-center">
+  <ul class="pagination">
+    <li *ngIf="pagination.currentPage > 2" class="page-item"><a (click)="pageChanged(1)" class="page-link">&laquo;</a>
+    </li>
+    <li *ngIf="pagination.currentPage > 1" class="page-item"><a (click)="pageChanged(pagination.previousPage)"
+        class="page-link">‹</a></li>
+    <li *ngIf="pagination.currentPage > 1" class="page-item"><a (click)="pageChanged(pagination.previousPage)"
+        class="page-link">{{pagination.previousPage}}</a></li>
+    <li *ngIf="pagination.currentPage > 0" class="page-item active"><a class="page-link">{{pagination.currentPage}}</a>
+    </li>
+    <li *ngIf="pagination.currentPage < pagination.lastPage" class="page-item"><a
+        (click)="pageChanged(pagination.nextPage)" class="page-link">{{pagination.nextPage}}</a></li>
+    <li *ngIf="pagination.currentPage < pagination.lastPage" class="page-item"><a
+        (click)="pageChanged(pagination.nextPage)" class="page-link">›</a></li>
+    <li *ngIf="pagination.currentPage < pagination.lastPage - 1" class="page-item"><a
+        (click)="pageChanged(pagination.lastPage)" class="page-link">&raquo;</a></li>
+  </ul>
+</div>
