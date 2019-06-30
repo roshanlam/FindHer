@@ -1,0 +1,18 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div *ngIf="messages" class="col-8">
+      <h4 *ngIf="messages.length === 0">No New Messages Found...</h4>
+      <table *ngFor="let message of messages" class="table" [routerLink]="['/members', message.senderDetails._id]" [queryParams]="{tab: 3}" style="cursor: pointer">
+        <tr>
+          <td rowspan="2" style="width: 2%"><img [src]="message.senderDetails.photoUrl" class="rounded-circle"></td>
+          <th style="width: 30%">{{message.senderDetails.knownAs}}</th>
+          <td style="width: 10%">{{message.dateSent | timeAgo}}</td>
+        </tr>
+        <tr>
+          <td>{{message.content}}</td>
+          <td><span class="badge badge-pill badge-warning">{{message.totalMessages}} New</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
