@@ -1,0 +1,68 @@
+<div class="container mt-4">
+  <div class="row">
+    <h1>{{aUserDetails.knownAs}}'s Profile</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img src="{{aUserDetails.photoUrl}}" alt="{{aUserDetails.knownAs}}" class="card-img-top img-thumbnail">
+
+        <div class="card-body">
+          <div>
+            <strong>Location:</strong>
+            <p>{{aUserDetails.city}}, {{aUserDetails.country}}</p>
+          </div>
+          <div>
+            <strong>Age:</strong>
+            <p>{{aUserDetails.age}}</p>
+          </div>
+          <div>
+            <strong>Last Active:</strong>
+            <p>{{aUserDetails.lastActive | timeAgo}}</p>
+          </div>
+          <div>
+            <strong>Member Since:</strong>
+            <p>{{aUserDetails.createdDate | date}}</p>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <div class="btn-group d-flex">
+            <button *ngIf="!aUserDetails.likeThisPerson" class="btn btn-primary w-100" (click)="sendLike(aUserDetails._id)">Like</button>
+            <button *ngIf="aUserDetails.likeThisPerson" class="btn btn-primary w-100" (click)="sendLike(aUserDetails._id)">Dislike</button>
+            <button class="btn btn-success w-100" (click)="selectTab(3)">Message</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-sm-8">
+
+      <div class="tab-panel">
+        <tabset class="member-tabset" #memberTabs>
+          <tab heading="About {{aUserDetails.knownAs}}">
+            <h4>Description</h4>
+            <p>{{aUserDetails.introduction}}</p>
+            <h4>Looking For</h4>
+            <p>{{aUserDetails.lookingFor}}</p>
+          </tab>
+          <tab heading="Interests">
+            <h4>Interests</h4>
+            <p>{{aUserDetails.interests}}</p>
+          </tab>
+          <tab heading="Photos">
+            <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+          </tab>
+          <tab heading="Messages">
+            <app-member-messages
+              [recipientDetails]="{recipientId:aUserDetails._id,recipientName:aUserDetails.knownAs}"
+              (setTab)="selectTab($event)"></app-member-messages>
+          </tab>
+        </tabset>
+      </div>
+
+    </div>
+
+  </div>
+</div>
