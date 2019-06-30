@@ -1,0 +1,24 @@
+.dropdown-toggle, .dropdown-item {
+    cursor: pointer;
+}
+
+img {
+    object-fit: cover;
+    height: 45px;
+    width: 45px;
+}
+
+nav {
+    background-color: crimson !important;
+}
+
+form button {
+    color: blue ;
+    border: solid 1pt blue;
+    background-color: rgba(0, 0, 255, 0.2);
+}
+
+form button:hover {
+    background-color: blue;
+    color: white ;
+}
