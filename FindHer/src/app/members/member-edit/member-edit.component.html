@@ -1,0 +1,75 @@
+<div *ngIf="userDetails" class="container mt-4">
+  <div class="row">
+    <div class="col-sm-4">
+      <h1>Your Profile</h1>
+    </div>
+    <div class="col-sm-8">
+      <div *ngIf="editForm.dirty" class="alert alert-info">
+        <strong>Informaton:</strong> You have made changes. Any unsaved changes will be lost!
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img src="{{userDetails.photoUrl}}" alt="{{userDetails.knownAs}}" class="card-img-top img-thumbnail">
+
+        <div class="card-body">
+          <div>
+            <strong>Location</strong>
+            <p>{{userDetails.city}}, {{userDetails.country}}</p>
+          </div>
+          <div>
+            <strong>Age:</strong>
+            <p>{{userDetails.age}}</p>
+          </div>
+          <div>
+            <strong>Last Active</strong>
+            <p>{{userDetails.lastActive | timeAgo}}</p>
+          </div>
+          <div>
+            <strong>Member since</strong>
+            <p>{{userDetails.createdDate | date}}</p>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button [disabled]="!editForm.dirty" (click)="updateUser()" class="btn btn-success btn-block">Save
+            Changes</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-sm-8">
+
+      <div class="tab-panel">
+        <tabset class="member-tabset">
+          <tab heading="Edit Profile">
+            <form [formGroup]="editForm">
+              <h4>Description</h4>
+              <textarea class="textarea" formControlName="introduction" rows="6"></textarea>
+              <h4>Looking For</h4>
+              <textarea class="textarea" formControlName="lookingFor" rows="6"></textarea>
+              <h4>Interests</h4>
+              <textarea class="textarea" formControlName="interests" rows="6"></textarea>
+              <h4>Location Details</h4>
+              <div class="form-inline">
+                <label for="city">City</label>
+                <input formControlName="city" type="text" class="form-control">
+                <label for="country">Country</label>
+                <input formControlName="country" type="text" class="form-control">
+              </div>
+            </form>
+          </tab>
+          <tab heading="Photos">
+            <app-photo-editor [photos]="userDetails.photos" (getMemberPhotoChange)="updateMainPhoto($event)">
+            </app-photo-editor>
+          </tab>
+        </tabset>
+      </div>
+
+    </div>
+
+  </div>
+</div>
