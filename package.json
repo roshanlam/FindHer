@@ -4,7 +4,7 @@
   "description": "FindHer's server",
   "main": "server.js",
   "engines": {
-    "node": "10.15.3"
+    "node": "10"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
